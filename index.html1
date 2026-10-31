@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ملف 007 | خلف الحقيقة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap">
+<style>
+:root{--w:#321323;--k:#17151A;--c:#B87355;--g:#D8B878;--i:#E8DFD5;--red:rgba(190,40,60,.45);color-scheme:dark;box-sizing:border-box}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 50% 0,var(--w),var(--k) 70%) fixed;color:var(--i);font-family:Cairo,Tahoma,sans-serif;min-height:100vh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0)}
+h1,h2,h3{font-family:Amiri,'Times New Roman',serif;color:var(--g)}
+button{font:inherit;cursor:pointer;border:1px solid var(--c);background:linear-gradient(var(--c),#8f553b);color:var(--i);padding:.7em 1.4em;border-radius:6px;transition:.25s;box-shadow:0 0 0 rgba(0,0,0,0)}
+button:hover:not(:disabled){box-shadow:0 0 18px var(--red);transform:translateY(-2px);color:#fff}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.ghost{background:transparent;color:var(--g)}
+.gold{background:linear-gradient(var(--g),var(--c));color:var(--k);font-weight:700}
+/* splash */
+#splash{position:fixed;inset:0;z-index:100;background:var(--k);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity 1s,visibility 1s}
+#splash.off{opacity:0;visibility:hidden}
+#splash .n{font-family:Amiri,serif;font-size:clamp(2rem,8vw,4rem);color:var(--g);letter-spacing:2px;text-shadow:0 0 30px var(--red);animation:fin 2s both}
+#splash small{color:var(--c);animation:fin 2s .8s both}
+#splash .ln{width:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);animation:ln 2.2s .3s forwards}
+@keyframes ln{to{width:min(70vw,360px)}}
+@keyframes fin{from{opacity:0;filter:blur(8px);transform:translateY(12px)}to{opacity:1;filter:none;transform:none}}
+/* nav */
+header{position:sticky;top:0;z-index:50;background:rgba(23,21,26,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,115,85,.4);padding-top:env(safe-area-inset-top,0)}
+nav{display:flex;gap:6px;align-items:center;padding:8px 14px;overflow-x:auto}
+nav .logo{font-family:Amiri,serif;color:var(--g);font-size:1.2rem;white-space:nowrap;margin-inline-end:auto}
+nav button{background:transparent;border:0;color:var(--i);padding:.4em .8em;white-space:nowrap;font-size:.9rem}
+nav button.on{color:var(--g);box-shadow:inset 0 -2px var(--c)}
+#bar{height:4px;background:#000}#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),var(--g));transition:width .6s;box-shadow:0 0 10px var(--g)}
+.pl{font-size:.75rem;color:var(--c);text-align:center;padding:2px}
+/* views */
+main{flex:1;position:relative}
+.v{display:none;max-width:1000px;margin:0 auto;padding:28px 16px 40px}
+.v.on{display:block;animation:fin .8s both}
+.rv{opacity:0;transform:translateY(24px);transition:1s}.rv.in{opacity:1;transform:none}
+.hero{text-align:center;padding:8vh 0;position:relative}
+.hero h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1.3;text-shadow:0 0 40px var(--red)}
+.hero p{font-size:1.2rem;margin:16px 0 30px;opacity:.9}
+.stamp{display:inline-block;border:3px double var(--c);color:var(--c);padding:4px 16px;transform:rotate(-6deg);font-family:Amiri,serif;font-size:1.3rem;margin-bottom:14px;animation:stamp 1s .5s both}
+@keyframes stamp{from{transform:rotate(-6deg) scale(3);opacity:0}to{transform:rotate(-6deg) scale(1);opacity:.9}}
+.beam{position:fixed;top:0;width:260px;height:100%;background:linear-gradient(180deg,rgba(216,184,120,.07),transparent 70%);pointer-events:none;animation:sw 9s ease-in-out infinite alternate;transform-origin:top;z-index:0}
+@keyframes sw{from{transform:rotate(-14deg) translateX(10vw)}to{transform:rotate(14deg) translateX(60vw)}}
+.panel{background:rgba(23,21,26,.7);border:1px solid rgba(184,115,85,.5);border-radius:10px;padding:18px;box-shadow:0 0 30px rgba(50,19,35,.8),inset 0 0 40px rgba(50,19,35,.6)}
+/* scene */
+svg.scene{width:100%;height:auto;border-radius:10px;border:1px solid var(--c);box-shadow:0 0 30px var(--red)}
+.hot{cursor:pointer;animation:pulse 2.4s infinite}
+.hot:hover{filter:drop-shadow(0 0 10px var(--g))}
+.hot.found{animation:none;filter:drop-shadow(0 0 8px var(--g))}
+@keyframes pulse{50%{filter:drop-shadow(0 0 9px rgba(220,50,70,.9))}}
+.file{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px dashed var(--c);padding:4px 12px;border-radius:20px;font-size:.85rem;color:var(--g)}
+.chip.no{opacity:.35}
+/* suspects */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card{cursor:pointer;text-align:center;transition:.35s}
+.card:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 0 28px var(--red);border-color:var(--g)}
+.av{width:90px;height:90px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;font-size:2.6rem;background:radial-gradient(var(--w),var(--k));border:2px solid var(--g);box-shadow:0 0 16px var(--red)}
+.card h3{font-size:1.4rem}.card small{color:var(--c)}
+/* modal */
+#md{position:fixed;inset:0;z-index:80;background:rgba(10,8,12,.85);display:none;align-items:center;justify-content:center;padding:16px}
+#md.on{display:flex}
+#md .paper{background:linear-gradient(#e8dfd5,#cfc2b2);color:#2b1a22;max-width:520px;width:100%;max-height:85vh;overflow:auto;padding:24px;border-radius:4px;box-shadow:0 0 50px var(--red);animation:paper .6s both;position:relative}
+#md .paper h3{color:#321323;font-size:1.6rem}
+#md .paper p{margin:10px 0;line-height:1.9}
+#md .paper .st{position:absolute;top:10px;left:10px;border:2px solid #8a2a3a;color:#8a2a3a;padding:0 8px;transform:rotate(-8deg);font-weight:700}
+@keyframes paper{from{transform:perspective(800px) rotateX(-70deg) scale(.7);opacity:0;transform-origin:top}to{transform:none;opacity:1}}
+/* room */
+.steps{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.steps span{flex:1;min-width:110px;text-align:center;padding:8px 4px;border:1px solid rgba(184,115,85,.4);border-radius:6px;font-size:.85rem;opacity:.5}
+.steps span.on{opacity:1;border-color:var(--g);color:var(--g);box-shadow:0 0 12px var(--red)}.steps span.ok{opacity:.9;color:var(--c)}
+.opt{display:block;width:100%;text-align:right;margin:8px 0;background:rgba(50,19,35,.7);border:1px solid rgba(184,115,85,.5)}
+.opt.sel{border-color:var(--g);box-shadow:0 0 14px var(--red);color:var(--g)}
+.fb{margin-top:12px;padding:12px;border-right:3px solid var(--g);background:rgba(0,0,0,.35);line-height:1.8}
+.q{display:flex;justify-content:space-between;margin-top:16px;gap:8px}
+.stt{background:rgba(0,0,0,.35);border-radius:6px;padding:8px 12px;margin:6px 0;font-size:.95rem}
+/* reveal */
+.rev{text-align:center;min-height:60vh;display:grid;place-items:center}
+.rev h2{font-size:clamp(1.6rem,5vw,2.6rem);line-height:1.6;animation:fin 2s both}
+.vig{box-shadow:inset 0 0 160px 40px #000}
+/* env */
+#env{position:fixed;inset:0;z-index:90;background:rgba(10,8,12,.95);display:none;place-items:center;flex-direction:column;gap:20px}
+#env.on{display:grid}
+.e{width:min(300px,80vw);height:200px;position:relative;perspective:900px}
+.e .b{position:absolute;inset:0;background:#0d0c0f;border:1px solid var(--c);border-radius:4px;z-index:3;clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);box-shadow:0 0 30px var(--red)}
+.e .f{position:absolute;top:0;left:0;right:0;height:55%;background:#1d1a20;border:1px solid var(--c);transform-origin:top;z-index:4;clip-path:polygon(0 0,100% 0,50% 100%);transition:transform 1.4s,z-index 0s 1s}
+.e.open .f{transform:rotateX(180deg);z-index:1}
+.e .l{position:absolute;left:8%;right:8%;top:8%;bottom:6%;background:var(--i);color:#2b1a22;padding:12px;font-size:.78rem;line-height:1.7;z-index:2;transition:transform 1.6s 1.1s;border-radius:2px}
+.e.open .l{transform:translateY(-70%)}
+.e .seal{position:absolute;top:44%;left:50%;width:34px;height:34px;margin:-17px;border-radius:50%;background:radial-gradient(#b0303f,#6a1522);z-index:5;transition:opacity .5s;display:grid;place-items:center;color:var(--g);font-size:.7rem}
+.e.open .seal{opacity:0}
+#curtain{position:fixed;inset:0;z-index:95;background:var(--k);transform:scaleY(0);transform-origin:top;pointer-events:none;transition:transform .45s}
+#curtain.on{transform:scaleY(1)}
+footer{text-align:center;padding:22px 12px calc(22px + env(safe-area-inset-bottom,0));border-top:1px solid rgba(184,115,85,.4);background:rgba(23,21,26,.9);color:var(--g);position:relative;z-index:2}
+footer b{display:block;font-family:Amiri,serif;font-size:1.3rem;margin-bottom:4px}
+footer span{color:var(--c);font-size:.9rem}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translate(-50%,40px);background:var(--w);border:1px solid var(--g);padding:10px 20px;border-radius:8px;opacity:0;transition:.4s;z-index:120;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#snd{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0));right:14px;z-index:60;padding:.5em .9em;font-size:.85rem}
+@media(max-width:600px){.v{padding:20px 12px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="splash"><div class="n">خزنة الدوسري</div><div class="ln"></div><small>تقدّم لكم</small></div>
+<div class="beam"></div><div id="curtain"></div>
+<header>
+<nav id="nav"><span class="logo">ملف 007</span></nav>
+<div id="bar"><i></i></div><div class="pl" id="pl"></div>
+</header>
+<main>
+<section class="v on" id="v-home">
+<div class="hero">
+<div class="stamp">سرّي للغاية</div>
+<h1>الحقيقة لا تختبئ إلى الأبد</h1>
+<p>قضية غامضة، أدلة مفقودة، وأسرار تنتظر من يكشفها</p>
+<button class="gold" id="start" style="font-size:1.2rem;padding:.8em 2.2em">استلم القضية</button>
+<div id="cont" style="margin-top:14px"></div>
+</div>
+</section>
+<section class="v" id="v-scene"></section>
+<section class="v" id="v-sus"></section>
+<section class="v" id="v-room"></section>
+<section class="v" id="v-quiz"></section>
+<section class="v" id="v-rev"></section>
+</main>
+<div id="env"><div class="e" id="e"><div class="l">إلى المحقق المجهول:<br>اختفت لوحة «عيون الليل» النادرة من متحف الدوسري العتيق في ليلة عاصفة. لا كسر في الأبواب ولا أثر لاقتحام. الحقيقة بين يديك…</div><div class="b"></div><div class="f"></div><div class="seal">٠٠٧</div></div><button class="gold" id="goScene" style="visibility:hidden">ادخل مسرح الجريمة</button></div>
+<div id="md"><div class="paper" id="mp"></div></div>
+<button id="snd" class="ghost">🔇 الصوت: متوقف</button>
+<div id="toast"></div>
+<footer><b>عمل الطالبة خزنة الدوسري</b><span>تصميم وإبداع | خزنة الدوسري</span></footer>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const EV=[
+{id:'frame',n:'الإطار الفارغ',t:'قُصَّ القماش من الداخل بأداة دقيقة، لا بقوة. من فعلها كان يعرف اللوحة جيدًا ولديه وقت كافٍ.'},
+{id:'alarm',n:'سجل الإنذار',t:'تعطّل الإنذار عند الساعة 2:10 فجرًا باستخدام رمز إداري خاص بالمدير فقط.'},
+{id:'paper',n:'ورقة محترقة',t:'بقايا فاتورة ترميم مزوّرة لشراء نسخة طبق الأصل من «عيون الليل»، والختم عليها يشبه ختم الإدارة.'},
+{id:'foot',n:'أثر حذاء موحل',t:'أثر كبير قديم قرب الباب الخلفي. تبدو التربة من حديقة المتحف، فقد يكون لأي زائر أو عامل.'},
+{id:'paint',n:'قطرة طلاء',t:'طلاء زيتي طازج بلون أزرق ليلي. يدل على أن نسخة جديدة رُسمت حديثًا، لا على هوية السارق.'}];
+const SU=[
+{n:'مدير المتحف',e:'🎩',r:'الأستاذ منصور العتيبي',a:'٥٨ عامًا',s:'يدير المتحف منذ ثلاثين سنة، ويعاني من ديون خفية بعد ترميمات مكلفة.',q:'«كنت في بيتي منذ العاشرة ليلًا، ولم ألمس نظام الإنذار منذ أسبوع.»'},
+{n:'الرسامة الغامضة',e:'🎨',r:'ليلى الفارس',a:'٣٤ عامًا',s:'رسامة ترميم تعمل بالمتحف، تُخفي وجهها غالبًا وتعمل ليلًا في مرسمها.',q:'«كنت في مرسمي أنهي لوحة، وطلاء يدي لا يعني شيئًا.»'},
+{n:'الحارس الليلي',e:'🔦',r:'سالم الدوسري',a:'٤٧ عامًا',s:'حارس قديم، يعرف كل ممر، لكنه لا يملك صلاحية على نظام الإنذار.',q:'«مررت بالجناح الشرقي وكان كل شيء هادئًا بشكل غريب.»'},
+{n:'الزائر المجهول',e:'🕶️',r:'رجل بلا اسم',a:'غير معروف',s:'سجّل دخوله بتذكرة نقدية، ورُصد أكثر من مرة أمام لوحة «عيون الليل».',q:'«غادرت قبل الإغلاق، وأنا أحب اللوحات فقط.»'}];
+const ST=[
+{t:'فحص الأدلة',q:'أي دليل تراه الأهم لمعرفة من يملك صلاحية الدخول دون كسر؟',o:[['سجل الإنذار برمز إداري',1,'ممتاز. الرمز لا يملكه إلا المدير، فتضيق الدائرة بشكل حاسم.'],['أثر الحذاء الموحل',0,'الأثر قد يكون لأي شخص ولا يفسر تعطيل الإنذار. دليل ضعيف.'],['قطرة الطلاء الزرقاء',0,'تشير إلى نسخة مزيفة، لكنها لا تكشف من فتح الأبواب.']]},
+{t:'مقارنة الأقوال',q:'أي قول من أقوال المشتبه بهم يمكن اختباره فورًا بسجلات المتحف؟',o:[['قول المدير: لم ألمس الإنذار',1,'صحيح. السجل الرقمي يستطيع تأكيده أو نفيه.'],['قول الحارس: الجناح هادئ',0,'قول وصفي لا يمكن التحقق منه بسجل.'],['قول الزائر: غادرت قبل الإغلاق',0,'يمكن فحصه بكاميرات الدخول، لكنه لا يرتبط بتعطيل الإنذار.']]},
+{t:'اكتشاف التناقضات',q:'ما أقوى تناقض ظهر أمامك؟',o:[['المدير يقول إنه بعيد عن الإنذار والسجل يحمل رمزه 2:10',1,'هذا هو التناقض الذي ينهار عنده الدفاع كله.'],['الزائر يقول إنه غادر وأثر الحذاء قرب الباب',0,'تناقض محتمل لكنه ضعيف، فالأثر قديم.'],['الرسامة تنفي الأمر وعلى يدها طلاء',0,'الطلاء هو عملها اليومي، فلا يدينها.']]},
+{t:'تحديد المشتبه به',q:'قرارك النهائي: من سرق لوحة «عيون الليل»؟',o:SU.map((s,i)=>[s.n,i==0?1:0,''])}];
+const QZ=[
+{q:'ما العدد التالي: 2، 6، 12، 20، ؟',o:['28','30','32'],a:1},
+{q:'كل من يملك المفتاح دخل الخزنة. سالم دخل الخزنة. ماذا نستنتج؟',o:['سالم يملك المفتاح حتمًا','لا نستطيع الجزم أنه يملك المفتاح','سالم لا يملك المفتاح'],a:1},
+{q:'وُجدت بصمة على زجاج النافذة من الداخل فقط. الأرجح أن صاحبها…',o:['كان داخل الغرفة','كان في الشارع','لا علاقة له'],a:0},
+{q:'أي الأدلة التالية أقوى؟',o:['شائعة سمعها الجيران','سجل رقمي مؤرَّخ','انطباع شخصي'],a:1},
+{q:'توقفت الساعة عند 2:10 بعد الحادث. كيف نتصرف؟',o:['نجزم بوقت الجريمة','قد تكون حُرّكت عمدًا فنقارنها بدليل آخر','نتجاهلها'],a:1}];
+const RK=[[0,1,'محقق مبتدئ 🔍','الحقيقة تحتاج إلى مزيد من التدقيق، فلا تتعجل.'],[2,3,'محقق واعد 🕵️','لديك حدس جيد، وبعض التفاصيل ما زالت تفلت منك.'],[4,5,'محقق بارع 👑','عين لا تُخدع ومنطق لا يرحم. أنت من طراز كبار المحققين.']];
+let S;const def=()=>({go:0,ev:[],sus:[],ch:[],stage:0,qi:0,qa:[],qd:0,acc:0,solved:0});
+try{S=JSON.parse(sessionStorage.getItem('f007'))||def()}catch(e){S=def()}
+const save=()=>{try{sessionStorage.setItem('f007',JSON.stringify(S))}catch(e){}};
+const NAV=[['home','الرئيسية'],['scene','مسرح الجريمة'],['sus','المشتبه بهم'],['room','غرفة التحقيق'],['quiz','اختبر مهاراتك'],['rev','كشف الحقيقة']];
+let cur='home';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._);t._=setTimeout(()=>t.classList.remove('on'),2600)}
+function prog(){const done=S.ev.length+S.ch.filter(x=>x!=null).length+(S.solved?1:0);const p=Math.round(done/9*100);$('#bar i').style.width=p+'%';$('#pl').textContent='تقدم التحقيق: '+p+'%'}
+function nav(){const n=$('#nav');n.innerHTML='<span class="logo">ملف 007</span>';NAV.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.className=k==cur?'on':'';b.onclick=()=>go(k);n.append(b)})}
+function ok(k){if(k=='home')return 1;if(!S.go){toast('استلم القضية أولًا من الصفحة الرئيسية');return 0}
+if(k=='room'&&S.ev.length<3){toast('افحص مسرح الجريمة أولًا: اجمع 3 أدلة على الأقل ('+S.ev.length+'/3)');return 0}
+if(k=='rev'&&!S.solved){toast('أكمل مراحل التحقيق الأربع وحدد المشتبه به الصحيح لفتح الكشف');return 0}return 1}
+function go(k,force){if(!force&&!ok(k))return;const c=$('#curtain');c.classList.add('on');setTimeout(()=>{$$('.v').forEach(v=>v.classList.remove('on'));cur=k;({scene:rScene,sus:rSus,room:rRoom,quiz:rQuiz,rev:rRev,home:rHome})[k]();$('#v-'+k).classList.add('on');scrollTo(0,0);nav();obs();c.classList.remove('on')},450)}
+function obs(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});$$('.v.on .rv').forEach(e=>io.observe(e))}
+function rHome(){$('#cont').innerHTML=S.go?'<button class="ghost" onclick="go(\'scene\')">متابعة التحقيق ←</button>':''}
+/* envelope */
+$('#start').onclick=()=>{$('#env').classList.add('on');setTimeout(()=>$('#e').classList.add('open'),500);setTimeout(()=>$('#goScene').style.visibility='visible',3000);tone(220,.3)};
+$('#goScene').onclick=()=>{S.go=1;save();$('#env').classList.remove('on');$('#e').classList.remove('open');$('#goScene').style.visibility='hidden';go('scene')};
+/* scene */
+const HOT={frame:'<g class="hot" data-id="frame"><rect x="260" y="60" width="180" height="230" fill="none" stroke="#D8B878" stroke-width="10"/><rect x="272" y="72" width="156" height="206" fill="#0c0a0d"/><path d="M278 78l60 30-40 80 90 30" stroke="#B87355" stroke-width="2" fill="none"/></g>',
+alarm:'<g class="hot" data-id="alarm"><rect x="520" y="110" width="60" height="90" rx="6" fill="#2a2330" stroke="#B87355" stroke-width="3"/><circle cx="550" cy="140" r="9" fill="#b0303f"/><rect x="535" y="165" width="30" height="8" fill="#D8B878"/></g>',
+paper:'<g class="hot" data-id="paper"><path d="M90 330l50-8 14 36-52 10z" fill="#E8DFD5"/><path d="M130 328l24-4 6 24-18 4z" fill="#3b1c1c"/></g>',
+foot:'<g class="hot" data-id="foot"><ellipse cx="640" cy="350" rx="16" ry="30" fill="#4a3226" transform="rotate(20 640 350)"/><ellipse cx="690" cy="372" rx="16" ry="30" fill="#4a3226" transform="rotate(20 690 372)"/></g>',
+paint:'<g class="hot" data-id="paint"><circle cx="360" cy="352" r="11" fill="#2f4a9a"/><circle cx="378" cy="364" r="5" fill="#2f4a9a"/></g>'};
+function rScene(){const el=$('#v-scene');el.innerHTML=`<h2 class="rv">مسرح الجريمة</h2><p class="rv" style="margin:8px 0 14px">اضغط على العناصر المتوهجة لاكتشاف الأدلة. (${S.ev.length}/5)</p>
+<svg class="scene rv" viewBox="0 0 800 440"><defs><radialGradient id="lg" cx="50%" cy="25%" r="70%"><stop offset="0" stop-color="#4a2036"/><stop offset="1" stop-color="#17151A"/></radialGradient></defs><rect width="800" height="440" fill="url(#lg)"/><rect y="310" width="800" height="130" fill="#120f13"/><path d="M0 310h800" stroke="#B87355" stroke-width="2"/><rect x="40" y="70" width="110" height="150" fill="none" stroke="#B87355" opacity=".5"/><rect x="650" y="60" width="100" height="140" fill="none" stroke="#B87355" opacity=".5"/><path d="M60 100l70 90M130 100l-70 90" stroke="#B87355" opacity=".25"/>
+<rect x="400" y="0" width="0" height="0"/><polygon points="350,0 450,0 520,310 280,310" fill="#D8B878" opacity=".05"/>${Object.values(HOT).join('')}</svg>
+<div class="file rv" id="fl"></div>`;
+$$('#v-scene .hot').forEach(h=>{if(S.ev.includes(h.dataset.id))h.classList.add('found');h.onclick=()=>find(h.dataset.id)});flist()}
+function flist(){$('#fl').innerHTML='<b style="width:100%;color:var(--g)">ملف القضية:</b>'+EV.map(e=>`<span class="chip ${S.ev.includes(e.id)?'':'no'}" ${S.ev.includes(e.id)?`onclick="card('${e.id}')" style="cursor:pointer"`:''}>${S.ev.includes(e.id)?e.n:'دليل مفقود'}</span>`).join('')}
+function find(id){const n=!S.ev.includes(id);if(n){S.ev.push(id);save();prog();tone(520,.4);const h=$(`.hot[data-id="${id}"]`);h&&h.classList.add('found');flist();document.body.animate([{boxShadow:'inset 0 0 120px rgba(190,40,60,.6)'},{boxShadow:'inset 0 0 0 transparent'}],900)}card(id,n)}
+function card(id,n){const e=EV.find(x=>x.id==id);modal(`<span class="st">${n?'دليل جديد':'مُسجَّل'}</span><h3>${e.n}</h3><p>${e.t}</p><button onclick="cm()">إغلاق</button>`)}
+function modal(h){$('#mp').innerHTML=h;$('#md').classList.add('on')}function cm(){$('#md').classList.remove('on')}
+$('#md').onclick=e=>{if(e.target.id=='md')cm()};
+/* suspects */
+function rSus(){$('#v-sus').innerHTML=`<h2 class="rv">المشتبه بهم</h2><p class="rv" style="margin:8px 0 16px">افتح ملف كل شخصية واقرأ أقواله.</p><div class="grid">${SU.map((s,i)=>`<div class="panel card rv" onclick="susf(${i})"><div class="av">${s.e}</div><h3>${s.n}</h3><small>${S.sus.includes(i)?'ملف مفتوح ✔':'ملف مغلق'}</small><p style="margin-top:8px;font-size:.9rem">${s.s}</p></div>`).join('')}</div>`}
+function susf(i){const s=SU[i];if(!S.sus.includes(i)){S.sus.push(i);save()}tone(300,.3);modal(`<span class="st">سرّي</span><h3>${s.e} ${s.n}</h3><p><b>الاسم:</b> ${s.r}<br><b>العمر:</b> ${s.a}</p><p>${s.s}</p><p><b>أقواله:</b><br>${s.q}</p><button onclick="cm();rSus()">إغلاق الملف</button>`)}
+/* room */
+function rRoom(){const el=$('#v-room'),i=S.stage,st=ST[i],c=S.ch[i];
+let fb='';if(c!=null&&i<3)fb=`<div class="fb">${st.o[c][2]}${st.o[c][1]?'':'<br><small>يمكنك تغيير اختيارك.</small>'}</div>`;
+let extra='';if(i==1)extra=SU.map(s=>`<div class="stt"><b>${s.n}:</b> ${s.q}</div>`).join('');
+if(i==2)extra=`<div class="stt">سجل الإنذار: ${S.ch[0]==0?'رمز إداري، 2:10 فجرًا':'رمز المدير، 2:10 فجرًا'}</div><div class="stt">قول المدير: ${SU[0].q}</div>${S.ch[0]==1&&S.ch[1]==1?'<div class="fb">بفضل تحليلك المتماسك فتح لك المحقق الأول سجل الكاميرات: يظهر ضوء مكتب المدير مضاءً في الثانية فجرًا.</div>':''}`;
+if(i==3)extra=`<div class="fb">دقة تحقيقك حتى الآن: ${S.ch.slice(0,3).filter((x,k)=>x!=null&&ST[k].o[x][1]).length} من 3.</div>`;
+el.innerHTML=`<h2 class="rv">غرفة التحقيق</h2><div class="steps rv">${ST.map((s,k)=>`<span class="${k==i?'on':k<i?'ok':''}">${k+1}. ${s.t}</span>`).join('')}</div>
+<div class="panel rv"><h3>${st.t}</h3><p style="margin:10px 0">${st.q}</p>${extra}${st.o.map((o,k)=>`<button class="opt ${c==k?'sel':''}" onclick="pick(${k})">${o[0]}</button>`).join('')}${fb}
+<div class="q"><button class="ghost" onclick="stg(-1)" ${i==0?'disabled':''}>→ السابق</button>${i<3?`<button onclick="stg(1)" ${c==null?'disabled':''}>التالي ←</button>`:`<button class="gold" onclick="accuse()" ${c==null?'disabled':''}>أؤكد اتهامي</button>`}</div></div>`;obs()}
+function pick(k){S.ch[S.stage]=k;save();prog();tone(400,.2);rRoom();$('#v-room').classList.add('on')}
+function stg(d){S.stage+=d;save();rRoom()}
+function accuse(){const c=S.ch[3];if(ST[3].o[c][1]){S.solved=1;S.acc=S.ch.slice(0,3).filter((x,k)=>ST[k].o[x][1]).length;save();prog();go('rev')}else{S.ch[3]=null;save();prog();modal(`<span class="st">خطأ</span><h3>اتهام غير دقيق</h3><p>الأدلة لا تدعم هذا الاتهام. راجع المراحل السابقة، فالتناقض الأهم لم يتضح بعد.</p><button onclick="cm();S.stage=0;save();rRoom()">العودة إلى فحص الأدلة</button>`)}}
+/* quiz */
+function rQuiz(){const el=$('#v-quiz');if(S.qd){const sc=S.qa.filter((a,i)=>a==QZ[i].a).length,r=RK.find(r=>sc>=r[0]&&sc<=r[1]);el.innerHTML=`<div class="panel rv" style="text-align:center"><h2>نتيجتك: ${sc} من 5</h2><h3 style="margin:12px 0;color:var(--i)">${r[2]}</h3><p>${r[3]}</p><button style="margin-top:16px" onclick="S.qa=[];S.qi=0;S.qd=0;save();rQuiz();$('#v-quiz').classList.add('on')">إعادة الاختبار</button></div>`;obs();return}
+const q=QZ[S.qi];el.innerHTML=`<h2 class="rv">اختبر مهاراتك</h2><div class="panel rv"><small style="color:var(--c)">السؤال ${S.qi+1} من 5</small><p style="margin:10px 0;font-size:1.15rem">${q.q}</p>${q.o.map((o,k)=>`<button class="opt ${S.qa[S.qi]==k?'sel':''}" onclick="qp(${k})">${o}</button>`).join('')}<div class="q"><button class="ghost" onclick="qn(-1)" ${S.qi==0?'disabled':''}>→ السابق</button><button onclick="qn(1)" ${S.qa[S.qi]==null?'disabled':''}>${S.qi==4?'إنهاء وعرض النتيجة':'التالي ←'}</button></div></div>`;obs()}
+function qp(k){S.qa[S.qi]=k;save();tone(350,.2);rQuiz();$('#v-quiz').classList.add('on')}
+function qn(d){if(d>0&&S.qi==4){S.qd=1}else S.qi+=d;save();rQuiz();$('#v-quiz').classList.add('on')}
+/* reveal */
+function rRev(){const q=S.qd?` · نتيجة اختبارك: ${S.qa.filter((a,i)=>a==QZ[i].a).length}/5`:'';$('#v-rev').innerHTML=`<div class="rev vig panel"><div><div class="stamp">القضية مُغلقة</div><h2>الجاني هو مدير المتحف، الأستاذ منصور العتيبي</h2><p style="margin:18px auto;max-width:560px;line-height:2">استغل رمزه الإداري لتعطيل الإنذار عند 2:10 فجرًا، وقصّ اللوحة من إطارها، وزوّر فاتورة ترميم ليخفي استبدالها بنسخة رسمتها الرسامة دون علمها بالغرض الحقيقي. الحارس والزائر لم يكونا إلا ظلالًا على المسرح.</p><h2 style="font-size:clamp(1.2rem,4vw,1.8rem)">«أحسنت أيها المحقق، لم تكن الحقيقة واضحة للجميع، لكنك استطعت اكتشافها»</h2><p style="margin:14px">دقة تحقيقك: ${S.acc} من 3 · أدلة مجموعة: ${S.ev.length} من 5${q}</p><button class="gold" onclick="newCase()">ابدأ قضية جديدة</button></div></div>`}
+function newCase(){S=def();save();prog();go('home',1)}
+/* sound */
+let ac,on=0,dr;function tone(f,d){if(!on||!ac)return;const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(.08,ac.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+d+.4);o.connect(g).connect(ac.destination);o.start();o.stop(ac.currentTime+d+.5)}
+$('#snd').onclick=()=>{try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();on=!on;if(on){ac.resume();dr=[55,82.4,110.6].map(f=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();o.frequency.value=f;o.type='sawtooth';g.gain.value=.012;l.frequency.value=.15+Math.random()*.2;lg.gain.value=.008;l.connect(lg).connect(g.gain);o.connect(g).connect(ac.destination);o.start();l.start();return[o,l]})}else dr&&dr.forEach(a=>a.forEach(o=>o.stop()));$('#snd').textContent=on?'🔊 الصوت: يعمل':'🔇 الصوت: متوقف'}catch(e){toast('الصوت غير متاح')}};
+setTimeout(()=>$('#splash').classList.add('off'),3200);
+nav();prog();rHome();obs();
+</script>
+</body>
+</html>
